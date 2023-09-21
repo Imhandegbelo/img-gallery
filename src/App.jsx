@@ -21,8 +21,8 @@ function App() {
   return (
     <div className="max-w-[1440px] mx-auto">
       <Routes>
-        <Route path="/" exact element={<Home />} />
-        {/* <Route path="/" exact element={<Login />} /> */}
+        {/* <Route path="/" exact element={<Home />} /> */}
+        <Route path="/" exact element={<Login />} />
         {/* <Route path="/home" element={<Home />} /> */}
       </Routes>
     </div>

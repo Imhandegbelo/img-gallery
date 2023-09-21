@@ -1,19 +1,31 @@
 import { useState } from "react";
 import background from "../assets/images/small-bg.jpg";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const _email = "user@example.com"
-  const _password = "1Password"
+  const [errorMessage, setErrorMessage] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const _email = "user@example.com";
+  const _password = "1Password";
+  const navigate = useNavigate();
 
-  function handleSubmit(email) {
-    
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log(email);
+    console.log(password);
+    if(email === _email && password === _password){
+      setIsLoggedIn(true)
+      navigate("/home")
+    }
   }
 
   return (
-    <div className={`bg-gray-300 flex justify-center items-center h-screen w-screen`}>
-      <div className=" border-t-8 rounded-sm border-indigo-600 bg-white p-12 shadow-2xl w-96">
+    <div
+      className={`bg-gray-300 flex justify-center items-center h-screen w-screen`}
+    >
+      <div className=" border-t-8 rounded-sm border-indigo-600 bg-white p-6 sm:p-12 shadow-2xl w-70vw sm:w-96">
         <h1 className="font-black text-center block text-2xl">[PhotoLux]</h1>
         <h1 className="font-bold text-center block text-2xl">Log In</h1>
         <form onSubmit={handleSubmit}>
@@ -29,7 +41,7 @@ export default function Login() {
               className="rounded px-4 py-3 w-full mt-1 bg-white text-gray-900 border border-gray-200 focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-100"
             />
           </label>
-          
+
           <label className="text-gray-500 block mt-3">
             Password
             <input

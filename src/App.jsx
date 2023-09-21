@@ -23,7 +23,7 @@ function App() {
       <Routes>
         {/* <Route path="/" exact element={<Home />} /> */}
         <Route path="/" exact element={<Login />} />
-        {/* <Route path="/home" element={<Home />} /> */}
+        <Route path="/home" element={<Home />} />
       </Routes>
     </div>
   );

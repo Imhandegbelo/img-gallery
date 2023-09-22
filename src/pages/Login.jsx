@@ -1,5 +1,6 @@
 import { useState } from "react";
 import background from "../assets/images/small-bg.jpg";
+import { useAuth } from "../Contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -18,6 +19,7 @@ export default function Login() {
       "Password must be at least 8 characters long",
     ],
   };
+  const auth = useAuth()
 
   function renderErrorMessage(message) {
     return (
@@ -28,6 +30,8 @@ export default function Login() {
   function handleSubmit(event) {
     event.preventDefault();
     setSubmitted(true);
+    // auth.login(email)
+    // navigate("/home");
 
     console.log(email);
     console.log(password);

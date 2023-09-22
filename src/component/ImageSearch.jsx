@@ -5,8 +5,9 @@ export default function ImageSearch({ searchText }) {
 
   const onSubmit = (e) => {
     e.preventDefault()
+    console.log(text)
     searchText(text);
-  };
+  }; 
 
   return (
     <div className="flex place-items-center mx-auto px-4 border-transparent">

@@ -5,10 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [errorMessage, setErrorMessage] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [emailTouched, setEmailTouched] = useState(false);
-  const [passTouched, setPassTouched] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const _email = "user@example.com";
   const _password = "1Password";
@@ -53,15 +50,11 @@ export default function Login() {
             Email
             <input
               autoFocus
-              required
               type="email"
               id="email"
               name="email"
               placeholder="me@email.com"
-              onChange={(e) => {
-                setEmail(e.target.value);
-                setEmailTouched(true);
-              }}
+              onChange={(e) => setEmail(e.target.value)}
               className="rounded px-4 py-3 w-full mt-1 bg-white text-gray-900 border border-gray-200 focus:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-100"
             />
           </label>

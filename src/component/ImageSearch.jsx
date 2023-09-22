@@ -5,7 +5,6 @@ export default function ImageSearch({ searchText }) {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    console.log(text)
     searchText(text);
   }; 
 

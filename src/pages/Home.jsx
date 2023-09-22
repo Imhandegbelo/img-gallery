@@ -4,7 +4,9 @@ import Footer from "../component/Footer";
 import Navbar from "../component/Navbar";
 import ImageSearch from "../component/ImageSearch";
 import Skeleton from "../component/Skeleton";
-import { useAuth } from "../Contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 export default function Home() {
   const LOCK = "39547829-3541a858f0864fa3f6ad9a193";
@@ -13,8 +15,12 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const draggedItem = useRef(null);
   const draggedOverItem = useRef(null);
+  const navigate = useNavigate();
 
-  // const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
+  // await signOut(auth);
+  // localStorage.removeItem("token");
+  // localStorage.removeItem("user");
+  // navigate("/");
 
   useEffect(() => {
     const url = `https://pixabay.com/api/?key=${LOCK}&q=${search}&image_type=photo`;
@@ -23,11 +29,9 @@ export default function Home() {
       .then((data) => {
         setImages(data.hits);
         setIsLoading(false);
-        console.log("from home: ", search);
       })
       .catch((error) => console.log(error));
   }, [search]);
-  console.log("from query:", search);
 
   // Handle sorting
   function handleSort() {
@@ -73,7 +77,6 @@ export default function Home() {
               onDragStart={(e) => (draggedItem.current = index)}
               onDragEnter={(e) => (draggedOverItem.current = index)}
               onDragEnd={handleSort}
-              // className={`${ondrag}`}
             >
               <Card image={image} />
             </div>

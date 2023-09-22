@@ -5,8 +5,8 @@ import Navbar from "../component/Navbar";
 import ImageSearch from "../component/ImageSearch";
 import Skeleton from "../component/Skeleton";
 import { useNavigate } from "react-router-dom";
-import { signOut } from "firebase/auth";
-import { auth } from "../utils/firebase";
+// import { signOut } from "firebase/auth";
+// import { auth } from "../utils/firebase";
 
 export default function Home() {
   const LOCK = "39547829-3541a858f0864fa3f6ad9a193";

@@ -5,11 +5,12 @@ import Navbar from "../component/Navbar";
 import ImageSearch from "../component/ImageSearch";
 import Skeleton from "../component/Skeleton";
 import { useNavigate } from "react-router-dom";
+import { auth, provider } from "../config/firebase";
 // import { signOut } from "firebase/auth";
 // import { auth } from "../utils/firebase";
 
 export default function Home() {
-  const LOCK = "39547829-3541a858f0864fa3f6ad9a193";
+  const apiKey = import.meta.env.VITE_unsplashKey;
   const [images, setImages] = useState([]);
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -21,17 +22,29 @@ export default function Home() {
   // localStorage.removeItem("token");
   // localStorage.removeItem("user");
   // navigate("/");
+  const FetchSearchData = async (term) => {
+    setIsLoading(true);
+    const url = `https://pixabay.com/api/?key=${apiKey}&q=${term}&image_type=photo`;
+    try {
+      const response = await fetch(url);
+      const result = await response.json();
+      setImages(result.hits);
+      setIsLoading(false);
+    } catch (error) {
+      console.error({ error });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const url = `https://pixabay.com/api/?key=${LOCK}&q=${search}&image_type=photo`;
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        setImages(data.hits);
-        setIsLoading(false);
-      })
-      .catch((error) => console.log(error));
-  }, [search]);
+    const user = auth.currentUser;
+    if (user) {
+      FetchSearchData(search);
+    } else {
+      navigate("/");
+    }
+  }, [auth.currentUser, search]);
 
   // Handle sorting
   function handleSort() {
@@ -59,7 +72,7 @@ export default function Home() {
 
       <div className="bg-gray-100 max-w-[1440px] px-12 py-6 pt-6 md:px-24">
         {isLoading && (
-          <div className="grid gap-8 md:gap-12 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 md:gap-12 md:grid-cols-2 lg:grid-cols-3 ">
             <Skeleton />
             <Skeleton />
             <Skeleton />

@@ -1,9 +1,9 @@
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import { Outlet, Route, Routes } from "react-router-dom";
-import { AuthProvider } from "./Contexts/AuthContext";
 import Signup from "./pages/Signup";
-import Protected from "./component/Protected";
+// import { AuthProvider } from "./Contexts/AuthContext";
+// import Protected from "./component/Protected";
 
 
 function App() {
@@ -12,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/register" element={<Signup />} />
         {/* <Route path="/login"  element={<Login />} /> */}
       </Routes>
     </div>

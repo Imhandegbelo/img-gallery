@@ -38,7 +38,7 @@ export default function Home() {
     } else {
       navigate("/");
     }
-  }, [auth.currentUser, search]);
+  }, [search]);
 
   // Handle sorting
   function handleSort() {
@@ -61,7 +61,7 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
+      <Navbar userInfo={user} />
       <ImageSearch searchText={(text) => setSearch(text)} />
 
       <div className="bg-gray-100 max-w-[1440px] px-12 py-6 pt-6 md:px-24">

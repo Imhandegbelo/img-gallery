@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../config/firebase";
+// import { auth } from "../config/firebase";
+import logout from "../assets/images/logout.svg";
+import avatar from "../assets/images/user.svg";
 
-export default function Navbar() {
-  const navigate = useNavigate()
-  const user = auth.currentUser
-  const logout = async () => {
-     await auth.signOut();
-     navigate("/")
+export default function Navbar({ userInfo }) {
+  const navigate = useNavigate();
+  // const user = auth.currentUser;
+  console.log(userInfo);
+  const Logout = async () => {
+    await auth.signOut();
+    localStorage.removeItem("auth");
+    navigate("/");
   };
 
   return (
@@ -15,21 +19,26 @@ export default function Navbar() {
       <div className="w-full flex items-center justify-between mb-4 px-12 md:px-20 shadow-xl">
         <div className="py-4">
           <h1 className="text-2xl text-indigo-600 font-black md:hidden">
-            [PL]
+            [F]&sup;2
           </h1>
           <h1 className="text-2xl text-indigo-600 font-black hidden md:block">
-            [PhotoLux]
+            [FotoFilia]
           </h1>
         </div>
         <div className="flex items-center gap-4">
           <button
-            className="my-4 md:my-6 transition transition-all block py-3 px-4 text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg"
-            onClick={logout}
+            className="flex gap-2 items-center my-4 md:my-6 transition transition-all block py-3 px-4 text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg"
+            onClick={Logout}
           >
+            <img src={logout} alt="" />
             Logout
           </button>
           <div className="">
-            {/* <img src={avatar} alt="" className="w-10 h-10 rounded-full" /> */}
+            <img
+              src={userInfo.photoURL ? photoURL : avatar}
+              alt=""
+              className="w-10 h-10 rounded-full"
+            />
           </div>
           <label htmlFor="menu-toggle" className="cursor-pointer hidden">
             <svg

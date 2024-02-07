@@ -11,46 +11,45 @@ import mountain3 from "../assets/images/mountain3.jpg";
 import animal1 from "../assets/images/animal.jpg";
 // import animal1 from "../assets/";
 
-export default images =[
-   
-    {
-        title: "Butterfly",
-        tags: "butterfly, flower",
-        src: animal1
-    },
-    {
-        title: "Sunrise on Beach",
-        tags: "sunrise, beach",
-        src: beach1
-    },
-    {
-        title: "Beautiful Beach Surise",
-        tags: "sunrise, beach",
-        src: beach2
-    },
-    {
-        title: "Beautiful Beach Surise",
-        tags: "summer, beach, palm",
-        src: beach3
-    },
-    {
-        title: "Beautiful Beach Surise",
-        tags: "mountain, rock planes",
-        src: mountain1
-    },
-    {
-        title: "Beautiful Beach Surise",
-        tags: "mountain, forest",
-        src: mountain2
-    },
-    {
-        title: "Nice rock formation",
-        tags: "rock, desert",
-        src: mountain3
-    },
-    {
-        title: "Forest road",
-        tags: "rock, desert",
-        src: mountain3
-    },
-]
+export default images = [
+  {
+    title: "Butterfly",
+    tags: "butterfly, flower",
+    src: animal1,
+  },
+  {
+    title: "Sunrise on Beach",
+    tags: "sunrise, beach",
+    src: beach1,
+  },
+  {
+    title: "Beautiful Beach Surise",
+    tags: "sunrise, beach",
+    src: beach2,
+  },
+  {
+    title: "Beautiful Beach Surise",
+    tags: "summer, beach, palm",
+    src: beach3,
+  },
+  {
+    title: "Beautiful Beach Surise",
+    tags: "mountain, rock planes",
+    src: mountain1,
+  },
+  {
+    title: "Beautiful Beach Surise",
+    tags: "mountain, forest",
+    src: mountain2,
+  },
+  {
+    title: "Nice rock formation",
+    tags: "rock, desert",
+    src: mountain3,
+  },
+  {
+    title: "Forest road",
+    tags: "rock, desert",
+    src: mountain3,
+  },
+];

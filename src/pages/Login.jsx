@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
 // import background from "../assets/images/small-bg.jpg";
-// import { useAuth } from "../Contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, provider } from "../config/firebase";
-import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  getAuth,
+} from "firebase/auth";
 
 export default function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const _email = "user@example.com";
-  const _password = "1Password";
   const navigate = useNavigate();
 
   useEffect(() => {
+    // getPhoto();
     const user = auth.currentUser;
-    if (user) navigate("/home");
-  }, []);
+    const current = JSON.parse(localStorage.getItem("auth"));
+    let isAuth = !!JSON.parse(localStorage.getItem("auth")).isAuth;
+    if (isAuth) navigate("/home");
+  }, [getAuth]);
 
   function renderErrorMessage(message) {
     return (
@@ -25,14 +29,40 @@ export default function Login() {
     );
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+    setSubmitted(true);
     event.preventDefault();
-    console.log(import.meta.env.VITE_apiKey);
-    signInWithEmailAndPassword(auth, email, password);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^[a-zA-Z0-9_@!#$*.]{8,}$/;
+    if (!emailRegex.test(email)) {
+      setError("Enter a valid email address");
+      return;
+    }
+    if (passwordRegex.test(password)) {
+      setError("Passwords must be at least 8 characters");
+      return;
+    }
+    let result = await signInWithEmailAndPassword(auth, email, password);
+    const userInfo = {
+      userID: result.user.uid,
+      name: result.user.displayName,
+      profilePhoto: result.user.photoURL,
+      isAuth: true,
+    };
+    localStorage.setItem("auth", JSON.stringify(userInfo));
+    // let isAuth = !!JSON.parse(localStorage.getItem("auth")).auth;
+    navigate("/home");
   };
 
   const signInWithGoogle = async () => {
     const result = await signInWithPopup(auth, provider);
+    const userInfo = {
+      userID: result.user.uid,
+      name: result.user.displayName,
+      profilePhoto: result.user.photoURL,
+      isAuth: true,
+    };
+    localStorage.setItem("auth", JSON.stringify(userInfo));
     navigate("/home");
   };
 

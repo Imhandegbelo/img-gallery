@@ -1,14 +1,40 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../config/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
-const Signup = (props) => {
-  const [submitted, setSubmitted] = useState(false);
+const Signup = () => {
+  // const [submitted, setSubmitted] = useState(false);
+
+  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const { error, setError } = useState("");
+  const apiKey = import.meta.env.VITE_unsplashKey;
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    // FetchSearchData();
+  }, []);
+
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    // setSubmitted(true);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const userInfo = {
+          userID: userCredential.user.uid,
+          name: userCredential.user.displayName,
+          profilePhoto: userCredential.user.photoURL,
+          isAuth: true,
+        };
+        localStorage.setItem("auth", JSON.stringify(userInfo));
+        navigate("/home");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error({ errorCode, errorMessage });
+      });
   };
 
   return (
@@ -18,7 +44,7 @@ const Signup = (props) => {
       <div className=" border-t-8 rounded-sm border-indigo-600 bg-white p-6 sm:p-12 shadow-2xl w-70vw sm:w-96">
         <h1 className="font-black text-center block text-2xl">[PhotoLux]</h1>
         <h1 className="font-bold text-center block text-2xl">Sign Up</h1>
-        <form method="POST" onSubmit={handleSubmit}>
+        <form method="POST" onSubmit={handleSignUp}>
           <label className="text-gray-500 block mt-3">
             Email
             <input
@@ -50,7 +76,7 @@ const Signup = (props) => {
             ? renderErrorMessage("Password cannot be blank")
             : ""} */}
           <button
-            // onClick={h}
+            // onClick={handleSignUp}
             className="my-4 md:my-6 transition transition-all block py-3 px-4 w-full text-white font-bold rounded cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-400 hover:from-indigo-700 hover:to-purple-500 focus:bg-indigo-900 transform hover:-translate-y-1 hover:shadow-lg"
           >
             SignUp

@@ -6,8 +6,6 @@ import ImageSearch from "../component/ImageSearch";
 import Skeleton from "../component/Skeleton";
 import { useNavigate } from "react-router-dom";
 import { auth, provider } from "../config/firebase";
-// import { signOut } from "firebase/auth";
-// import { auth } from "../utils/firebase";
 
 export default function Home() {
   const apiKey = import.meta.env.VITE_unsplashKey;
@@ -18,10 +16,6 @@ export default function Home() {
   const draggedOverItem = useRef(null);
   const navigate = useNavigate();
 
-  // await signOut(auth);
-  // localStorage.removeItem("token");
-  // localStorage.removeItem("user");
-  // navigate("/");
   const FetchSearchData = async (term) => {
     setIsLoading(true);
     const url = `https://pixabay.com/api/?key=${apiKey}&q=${term}&image_type=photo`;
@@ -37,8 +31,8 @@ export default function Home() {
     }
   };
 
+  const user = auth.currentUser;
   useEffect(() => {
-    const user = auth.currentUser;
     if (user) {
       FetchSearchData(search);
     } else {

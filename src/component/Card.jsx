@@ -5,11 +5,11 @@ export default function Card({ image }) {
     <div className={`shadow-xl cursor-move`}>
       <img
         src={image.webformatURL}
-        alt="road1"
+        alt={`photo by ${image.user}`}
         className="w-full aspect-[4/3] md:h-[22.5rem] object-cover"
       />
       <div className="flex flex-col gap-2">
-        <h2 className="text-xl text-indigo-600 font-semibold pt-1 ml-2 md:ml-6">
+        <h2 className="text-xl text-indigo-600 font-semibold pt-1 ml-2 md:ml-4">
           Image by {image.user}
         </h2>
         <div className="grid grid-cols-3">

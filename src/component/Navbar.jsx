@@ -1,13 +1,10 @@
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-// import { auth } from "../config/firebase";
 import logout from "../assets/images/logout.svg";
-import avatar from "../assets/images/user.svg";
+// import avatar from "../assets/images/user.svg";
+import { auth } from "../config/firebase";
 
 export default function Navbar({ userInfo }) {
   const navigate = useNavigate();
-  // const user = auth.currentUser;
-  console.log(userInfo);
   const Logout = async () => {
     await auth.signOut();
     localStorage.removeItem("auth");
@@ -34,11 +31,11 @@ export default function Navbar({ userInfo }) {
             Logout
           </button>
           <div className="">
-            <img
-              src={userInfo.photoURL ? photoURL : avatar}
+            {/* <img
+              src={userInfo.photoURL !== null ? userInfo.photoURL : avatar}
               alt=""
               className="w-10 h-10 rounded-full"
-            />
+            /> */}
           </div>
           <label htmlFor="menu-toggle" className="cursor-pointer hidden">
             <svg

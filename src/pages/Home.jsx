@@ -31,9 +31,10 @@ export default function Home() {
     }
   };
 
-  const user = auth.currentUser;
+  // const user = auth.currentUser;
+  const user = JSON.parse(localStorage.getItem("auth"));
   useEffect(() => {
-    if (user) {
+    if (user !== null) {
       FetchSearchData(search);
     } else {
       navigate("/");
@@ -62,6 +63,7 @@ export default function Home() {
   return (
     <>
       <Navbar userInfo={user} />
+
       <ImageSearch searchText={(text) => setSearch(text)} />
 
       <div className="bg-gray-100 max-w-[1440px] px-12 py-6 pt-6 md:px-24">
